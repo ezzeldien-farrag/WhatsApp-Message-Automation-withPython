@@ -1,103 +1,97 @@
+# WhatsApp Automated Sender (GUI)
+
+A Python GUI tool to send personalized WhatsApp messages from an Excel sheet using Selenium automation.  
+Supports selecting a sheet, entering your message, and tracking send status in a log file.
+
+---
+
+## Features
+
+- Select Excel file and sheet
+- Automatically detect phone numbers
+- Enter and customize your message
+- Sends messages via WhatsApp Web
+- Logs both successful and failed sends
+- No manual ChromeDriver setup — works automatically
+
+---
+
+## Requirements
+
+- Python 3.9 or newer
+- Google Chrome installed and updated with  WhatsApp account logged in
+- WhatsApp account
+
+---
+
+## Installation
+
+in your command line
+
+Install the latest versions of required Python packages:
 ````markdown
-# 📤 WhatsApp Message Automation using Python
 
-This Python script allows you to send WhatsApp messages to a list of phone numbers loaded from an Excel file (`numbers.xlsx`).  
-It logs successful and failed attempts and exports a full report to a new Excel file.
-
----
-
-## ✅ Features
-
-- 📄 Read phone numbers from an Excel sheet.
-- 💬 Send messages using WhatsApp Web via `pywhatkit`.
-- 🧾 No need to save contacts on your phone.
-- ✅ Track successful and failed messages.
-- 📊 Generate a report with:
-  - `Success` sheet: Numbers that received messages.
-  - `Failed` sheet: Numbers where sending failed.
-  - `Summary` sheet: Total sent vs. failed counts.
-
----
-
-## 🧩 Requirements
-
-Make sure you have the following installed:
-
-```bash
-pip install pywhatkit pandas openpyxl
+pip install pandas openpyxl selenium webdriver-manager
 ````
+or using requirements.txt file:
 
-* Python 3.x
-* WhatsApp Web must be open and logged in on your default browser
-* The script uses `pywhatkit` to simulate sending messages
+````markdown
+
+pip install -r requirements.txt
+````
+---
+
+## Usage
+
+1. **Run the script:**
+
+   ```bash
+   python main.py
+   ```
+
+2. **Steps in the GUI:**
+
+   * Select your Excel file
+   * select country code
+   * Enter your message
+   * Click **Send Messages**
+
+3. **WhatsApp Web** will open in Chrome:
+
+   * Scan the QR code (first time only if you are not logged-in)
+   * Messages will be sent automatically
+   * A status log will be saved in `whatsapp_message_report.xlsx`
 
 ---
 
-## 📄 Input File Format
+## Excel Format
 
-The script expects an Excel file named `numbers.xlsx` with a column labeled `Phone` containing full international phone numbers.
+Your Excel file should contain:
 
-### Example `nums.xlsx`:
+* **Column Name:** `Phone`
+* Example:
 
-| Phone         |
-| ------------- |
-| +2013234567890 |
-| +2011412223334 |
-
----
-
-## ▶️ How to Use
-
-1. Open WhatsApp Web in your browser and stay logged in.
-2. Place the `numbers.xlsx` file in the same folder as the script.
-3. Run the script:
-
-```bash
-python send_whatsapp_messages.py
-```
-
-4. Wait while the messages are sent one by one.
-5. After completion, check the generated file:
-
-```
-📄 whatsapp_message_report.xlsx
-├── Success  → Successfully sent numbers
-├── Failed   → Failed numbers
-└── Summary  → Count of success/failure
-```
+  | Phone        |
+  | ------------ |
+  | 202357890.. |
+  | 211223334.. |
 
 ---
 
-## ⚠️ Important Notes
+## Troubleshooting
 
-* The script sends messages using your browser, not the WhatsApp API.
-* **Delay between messages** is currently set to `20 seconds`. You can adjust it in the script.
-* To reduce the chance of getting banned:
+* **Chrome update issue:**
+  This script uses `webdriver-manager` which auto-updates the driver to match Chrome’s latest version.
 
-  * Don't send more than 50–100 messages per day.
-  * Use real, non-spammy content.
-  * Avoid sending too fast — increase delay if necessary.
+* **Numbers without WhatsApp:**
+  Such numbers will be marked as failed in the log.
 
----
-
-## ✅ Example Console Output
-
-```
-✅ Message sent to +2012346567890
-❌ Failed to send message to +2011125223334: Error details...
-
-📄 Report saved as whatsapp_message_report.xlsx
-Total Sent: 1, Total Failed: 1
-```
+* **Script not starting:**
+  Make sure Python and Chrome are both installed and added to your system PATH.
 
 ---
 
 ## 🔐 Disclaimer
 
-This script is for **educational and personal use only**.
-Using it for bulk or promotional messaging may violate WhatsApp's Terms of Service.
-Use responsibly.
-
----
-
+This script is for educational and personal use only. Automated WhatsApp messaging through unofficial means may violate WhatsApp's terms of service. Use responsibly.
 
